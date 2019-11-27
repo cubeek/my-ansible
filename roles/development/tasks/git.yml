@@ -18,5 +18,6 @@
 - name: install private key for gerrit
   copy:
     src: id_rsa
-    dest: ~/.ssh/id_rsa mode=600
+    dest: ~/.ssh/id_rsa
+    mode: 600
 ...
