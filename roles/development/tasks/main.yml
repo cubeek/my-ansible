@@ -1,12 +1,23 @@
 ---
 - include_tasks: update.yml
 
-- name: install development tools group
+- name: install development tools group (CentOS 7)
   package:
     name: "@development,epel-release"
     state: present
   become: yes
-  when: ansible_distribution == 'CentOS'
+  when:
+    - ansible_distribution == 'CentOS'
+    - ansible_distribution_major_version == "7"
+
+- name: install development tools group (CentOS 8)
+  package:
+    name: "@development,epel-release"
+    state: present
+  become: yes
+  when:
+    - ansible_distribution == 'CentOS'
+    - ansible_distribution_major_version == "8"
 
 - name: check my_settings_dir exists on local machine
   local_action: stat path={{ my_settings_dir }}
