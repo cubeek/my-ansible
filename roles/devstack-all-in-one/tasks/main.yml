@@ -21,7 +21,7 @@
 
 - name: create local.conf for controller
   template:
-    src: local.conf.j2
+    src: local_{{ deployment_type }}.conf.j2
     dest: "{{ devstack_dir }}/local.conf"
     mode: 0644
 
