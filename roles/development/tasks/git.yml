@@ -19,5 +19,5 @@
   copy:
     src: id_rsa
     dest: ~/.ssh/id_rsa
-    mode: 600
+    mode: 0600
 ...
