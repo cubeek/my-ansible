@@ -1,0 +1,92 @@
+---
+- name: install kerberos workstation
+  package:
+    name: krb5-workstation
+    state: present
+  become: yes
+
+- name: copy kerberos configuration
+  copy:
+    src: krb5.conf
+    dest: /etc/krb5.conf
+    mode: 0644
+  become: yes
+
+- name: get Red Hat IT Root certificate authority
+  get_url:
+    url: https://password.corp.redhat.com/RH-IT-Root-CA.crt
+    dest: /etc/pki/ca-trust/source/anchors/RH-IT-Root-CA.crt
+    validate_certs: no
+  become: yes
+
+- name: get legacy certificate authority
+  get_url:
+    url: https://password.corp.redhat.com/legacy.crt
+    dest: /etc/pki/ca-trust/source/anchors/legacy.crt
+    validate_certs: no
+  become: yes
+
+- name: get Engineering certificate authority
+  get_url:
+    url: https://engineering.redhat.com/Eng-CA.crt
+    dest: /etc/pki/ca-trust/source/anchors/Eng-CA.crt
+    validate_certs: no
+  become: yes
+
+- name: update certificates
+  shell: "update-ca-trust && update-ca-trust enable"
+  become: yes
+
+- name: WORKAROUND - remove urllib3 from pip
+  pip:
+    name: urllib3
+    state: absent
+  become: yes
+
+- name: install brew
+  yum:
+    name:
+      - http://download.eng.bos.redhat.com/brewroot/vol/rhel-8/packages/brewkoji/1.23/1.el8/noarch/brewkoji-1.23-1.el8.noarch.rpm
+      - http://download.eng.bos.redhat.com/brewroot/vol/rhel-8/packages/brewkoji/1.23/1.el8/noarch/python3-brewkoji-1.23-1.el8.noarch.rpm
+    state: installed
+  become: yes
+
+#- name: enable rhpkg repo
+#  get_url:
+#    url: http://download.devel.redhat.com/rel-eng/dist-git/rhel/rhpkg.repo
+#    dest: /etc/yum.repos.d/rhpkg.repo
+#  become: yes
+
+- name: install rhpkg
+  yum:
+    name:
+      - http://download.eng.bos.redhat.com/brewroot/vol/rhel-8/packages/rhpkg/1.40/1.el8eng/noarch/rhpkg-1.40-1.el8eng.noarch.rpm
+      - http://download.eng.bos.redhat.com/brewroot/vol/rhel-8/packages/python-rhmsg/0.10.1/2.el8eng/noarch/python3-rhmsg-0.10.1-2.el8eng.noarch.rpm
+    state: installed
+  become: yes
+
+- name: install other packages
+  yum:
+    name:
+      - redhat-rpm-config
+        #      - rhpkg
+      - rpm-build
+      - rpmdevtools
+      - mock
+      - libffi-devel
+        #      - deltarpm
+      - createrepo
+    state: installed
+  become: yes
+
+- name: add current user to mock group
+  user:
+    name: "{{ ansible_env.USER }}"
+    groups: mock
+    append: yes
+  become: yes
+
+- name: add environment variable for brew SSL connection
+  lineinfile:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    line: 'export REQUESTS_CA_BUNDLE=/etc/pki/tls/certs/ca-bundle.crt'
