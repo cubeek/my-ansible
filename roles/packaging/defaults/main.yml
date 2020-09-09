@@ -1,0 +1,3 @@
+---
+# defaults file for packaging
+rcm_repo_url: http://download.eng.brq.redhat.com/rel-eng/RCMTOOLS/rcm-tools-2-rhel-8-baseos.repo

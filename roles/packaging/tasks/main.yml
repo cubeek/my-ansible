@@ -43,33 +43,18 @@
     state: absent
   become: yes
 
-- name: install brew
-  yum:
-    name:
-      - http://download.eng.bos.redhat.com/brewroot/vol/rhel-8/packages/brewkoji/1.23/1.el8/noarch/brewkoji-1.23-1.el8.noarch.rpm
-      - http://download.eng.bos.redhat.com/brewroot/vol/rhel-8/packages/brewkoji/1.23/1.el8/noarch/python3-brewkoji-1.23-1.el8.noarch.rpm
-    state: installed
-  become: yes
-
-#- name: enable rhpkg repo
-#  get_url:
-#    url: http://download.devel.redhat.com/rel-eng/dist-git/rhel/rhpkg.repo
-#    dest: /etc/yum.repos.d/rhpkg.repo
-#  become: yes
-
-- name: install rhpkg
-  yum:
-    name:
-      - http://download.eng.bos.redhat.com/brewroot/vol/rhel-8/packages/rhpkg/1.40/1.el8eng/noarch/rhpkg-1.40-1.el8eng.noarch.rpm
-      - http://download.eng.bos.redhat.com/brewroot/vol/rhel-8/packages/python-rhmsg/0.10.1/2.el8eng/noarch/python3-rhmsg-0.10.1-2.el8eng.noarch.rpm
-    state: installed
+- name: enable rcm repo
+  get_url:
+    url: "{{ rcm_repo_url }}"
+    dest: /etc/yum.repos.d/rhpkg.repo
   become: yes
 
 - name: install other packages
   yum:
     name:
+      - brewkoji
       - redhat-rpm-config
-        #      - rhpkg
+      - rhpkg
       - rpm-build
       - rpmdevtools
       - mock
