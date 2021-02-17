@@ -12,6 +12,12 @@
     state: present
   become: yes
 
+- name: WORKAROUND: Install httpd
+  yum:
+    state: present
+    name: httpd
+  become: yes
+
 - name: flush iptables
   iptables: flush=true
   become: yes
