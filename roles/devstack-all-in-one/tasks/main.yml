@@ -12,11 +12,15 @@
     state: present
   become: yes
 
-- name: WORKAROUND: Install httpd
+- name: "WORKAROUND: Install missing dependencies"
   yum:
     state: present
-    name: httpd
+    name: "{{ item }}"
   become: yes
+  with_items:
+    - httpd
+    - memcached
+    - dstat
 
 - name: flush iptables
   iptables: flush=true
