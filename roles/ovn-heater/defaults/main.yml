@@ -1,0 +1,3 @@
+---
+ovn_heater_repo: https://github.com/ovn-org/ovn-heater.git
+ovn_heater_dir: ~/ovn-heater

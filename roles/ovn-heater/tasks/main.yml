@@ -1,0 +1,5 @@
+---
+- name: clone ovn-heater repo
+  git:
+    repo: "{{ ovn_heater_repo }}"
+    dest: "{{ ovn_heater_dir }}"
