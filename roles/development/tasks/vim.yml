@@ -4,7 +4,7 @@
     name: vim-enhanced
     state: latest
   become: yes
-  when: ansible_distribution == 'CentOS'
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Fedora'
 
 - name: install vim for personal use via apt
   apt:

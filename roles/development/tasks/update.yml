@@ -1,12 +1,12 @@
 ---
-- name: update all packages (CentOS)
+- name: update all packages (RHEL based)
   yum:
     name: '*'
     update_cache: yes
     state: latest
   become: yes
   register: updated_centos
-  when: ansible_distribution == 'CentOS'
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Fedora'
 
 - name: install aptitude (Ubuntu)
   package:

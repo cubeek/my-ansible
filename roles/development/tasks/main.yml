@@ -19,6 +19,14 @@
     - ansible_distribution == 'CentOS'
     - ansible_distribution_major_version == "8"
 
+- name: install development tools group (Fedora)
+  package:
+    name: "@development-tools"
+    state: present
+  become: yes
+  when:
+    - ansible_distribution == 'Fedora'
+
 - name: check my_settings_dir exists on local machine
   local_action: stat path={{ my_settings_dir }}
   register: myset
