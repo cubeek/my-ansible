@@ -1,3 +1,9 @@
 ---
 ovn_heater_repo: https://github.com/ovn-org/ovn-heater.git
 ovn_heater_dir: ~/ovn-heater
+rpm_install_list:
+  - git
+  - ansible
+  - ansible-collection-ansible-posix
+  - ansible-collection-ansible-utils
+  - libvirt

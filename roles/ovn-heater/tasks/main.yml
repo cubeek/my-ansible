@@ -1,5 +1,11 @@
 ---
 - name: clone ovn-heater repo
-  git:
+  ansible.builtin.git:
     repo: "{{ ovn_heater_repo }}"
     dest: "{{ ovn_heater_dir }}"
+
+- name: install RPM dependencies
+  ansible.builtin.dnf:
+    name: "{{ rpm_install_list }}"
+    state: present
+  become: yes
