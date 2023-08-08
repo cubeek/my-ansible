@@ -3,7 +3,7 @@
 
 - name: clone devstack repo
   git:
-    repo: git://github.com/openstack-dev/devstack.git
+    repo: "{{ devstack_repo }}"
     dest: "{{ devstack_dir }}"
 
 - name: "WORKAROUND: Install virtualenv 16.2.0, the latest doesn't work"
@@ -25,6 +25,7 @@
 - name: flush iptables
   iptables: flush=true
   become: yes
+  when: ansible_distribution != 'Fedora'
 
 - set_fact:
     controller_host_ip: "{{ hostvars.controller.ansible_default_ipv4.address }}"

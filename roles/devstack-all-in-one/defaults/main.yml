@@ -7,3 +7,4 @@ python3:
   source_dir: /tmp/Python-3.5.1
   version: 3.5
 deployment_type: ovn
+devstack_repo: https://opendev.org/openstack-dev/devstack.git
