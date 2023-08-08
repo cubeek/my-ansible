@@ -7,3 +7,10 @@ rpm_install_list:
   - ansible-collection-ansible-posix
   - ansible-collection-ansible-utils
   - libvirt
+  - virt-install
+  - guestfs-tools
+data_network_name: data
+data_orchestrator_mac: 52:54:00:6a:00:01
+data_ovn_central_mac: 52:54:00:6a:00:02
+data_ovn_worker_node1_mac: 52:54:00:6a:00:03
+data_ovn_worker_node2_mac: 52:54:00:6a:00:04

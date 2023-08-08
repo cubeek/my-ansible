@@ -1,11 +1,35 @@
 ---
-- name: clone ovn-heater repo
-  ansible.builtin.git:
-    repo: "{{ ovn_heater_repo }}"
-    dest: "{{ ovn_heater_dir }}"
+#- name: clone ovn-heater repo
+#  ansible.builtin.git:
+#    repo: "{{ ovn_heater_repo }}"
+#    dest: "{{ ovn_heater_dir }}"
+#
+#- name: install RPM dependencies
+#  ansible.builtin.dnf:
+#    name: "{{ rpm_install_list }}"
+#    state: present
+#  become: yes
 
-- name: install RPM dependencies
-  ansible.builtin.dnf:
-    name: "{{ rpm_install_list }}"
-    state: present
+- name: start libvirtd
+  ansible.builtin.systemd:
+    name: libvirtd
+    state: started
+    enabled: true
+  become: yes
+
+- name: create {{ data_network_name }} libvirt network XML file
+  ansible.builtin.template:
+    src: data-network.xml.j2
+    dest: /tmp/data-network.xml
+
+- name: create {{ data_network_name }} network
+  shell: |
+    if ! virsh net-list | grep -q "^ {{ data_network_name }}"; then
+      virsh net-define /tmp/data-network.xml && \
+      virsh net-autostart {{ data_network_name }} && \
+      virsh net-start {{ data_network_name }} && \
+      echo "{{ data_network_name }} created"
+    fi
+  register: result
+  changed_when: "'{{ data_network_name }} created' in result.stdout"
   become: yes
