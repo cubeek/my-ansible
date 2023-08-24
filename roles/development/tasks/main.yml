@@ -10,14 +10,14 @@
     - ansible_distribution == 'CentOS'
     - ansible_distribution_major_version == "7"
 
-- name: install development tools group (CentOS 8)
+- name: install development tools group (CentOS 8 and 9)
   package:
     name: "@development,epel-release"
     state: present
   become: yes
   when:
     - ansible_distribution == 'CentOS'
-    - ansible_distribution_major_version == "8"
+    - ansible_distribution_major_version in ["8", "9"]
 
 - name: install development tools group (Fedora)
   package:
