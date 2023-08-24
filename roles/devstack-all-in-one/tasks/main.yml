@@ -21,6 +21,7 @@
     - httpd
     - memcached
     - dstat
+  when: ansible_distribution == 'Fedora' or ansible_distribution == 'CentOS'
 
 - name: flush iptables
   iptables: flush=true

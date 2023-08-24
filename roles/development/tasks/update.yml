@@ -8,13 +8,6 @@
   register: updated_centos
   when: ansible_distribution == 'CentOS' or ansible_distribution == 'Fedora'
 
-- name: install aptitude (Ubuntu)
-  package:
-    name: "aptitude"
-    state: present
-  become: yes
-  when: ansible_distribution == 'Ubuntu'
-
 - name: update all packages (Ubuntu)
   apt:
     update_cache: yes
