@@ -14,17 +14,17 @@
 
 - name: get Red Hat IT Root certificate authority
   get_url:
-    url: https://password.corp.redhat.com/RH-IT-Root-CA.crt
+    url: "{{ root_it_certificate_url }}"
     dest: /etc/pki/ca-trust/source/anchors/RH-IT-Root-CA.crt
     validate_certs: no
   become: yes
 
-- name: get legacy certificate authority
-  get_url:
-    url: https://password.corp.redhat.com/legacy.crt
-    dest: /etc/pki/ca-trust/source/anchors/legacy.crt
-    validate_certs: no
-  become: yes
+    #- name: get legacy certificate authority
+    #  get_url:
+    #    url: https://password.corp.redhat.com/legacy.crt
+    #    dest: /etc/pki/ca-trust/source/anchors/legacy.crt
+    #    validate_certs: no
+    #  become: yes
 
 - name: get Engineering certificate authority
   get_url:
