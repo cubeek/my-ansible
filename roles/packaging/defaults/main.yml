@@ -1,4 +1,11 @@
 ---
 # defaults file for packaging
-rcm_repo_url: http://download.eng.brq.redhat.com/rel-eng/RCMTOOLS/rcm-tools-2-rhel-8-baseos.repo
-root_it_certificate_url: https://certs.corp.redhat.com/certs/2022-IT-Root-CA.pem
+rcm_repo_url:
+  "7": https://download.devel.redhat.com/rel-eng/dist-git/rhel/rhpkg.repo
+  "8": http://download.eng.brq.redhat.com/rel-eng/RCMTOOLS/rcm-tools-2-rhel-8-baseos.repo
+  "9": http://download.eng.brq.redhat.com/rel-eng/RCMTOOLS/rcm-tools-rhel-9-baseos.repo
+rh_certificates:
+  - https://certs.corp.redhat.com/certs/2022-IT-Root-CA.pem
+  - https://certs.corp.redhat.com/certs/2022-IT-Root-CA-signedby-2015.pem
+  - https://certs.corp.redhat.com/certs/2015-IT-Root-CA.pem
+  - https://certs.corp.redhat.com/certs/Current-IT-Root-CAs.pem
