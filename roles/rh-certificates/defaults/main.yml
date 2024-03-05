@@ -1,0 +1,7 @@
+---
+# defaults file for rh-certificates
+rh_certificates:
+  - https://certs.corp.redhat.com/certs/2022-IT-Root-CA.pem
+  - https://certs.corp.redhat.com/certs/2022-IT-Root-CA-signedby-2015.pem
+  - https://certs.corp.redhat.com/certs/2015-IT-Root-CA.pem
+  - https://certs.corp.redhat.com/certs/Current-IT-Root-CAs.pem

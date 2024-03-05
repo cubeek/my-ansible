@@ -1,0 +1,15 @@
+---
+# tasks file for rh-certificates
+- name: get Red Hat IT Root certificates
+  get_url:
+    url: "{{ item }}"
+    dest: /etc/pki/ca-trust/source/anchors/.
+    validate_certs: no
+  become: yes
+  with_items: "{{ rh_certificates }}"
+
+- name: update certificates
+  shell: "update-ca-trust && update-ca-trust enable"
+  become: yes
+
+
